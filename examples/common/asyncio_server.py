@@ -119,27 +119,28 @@ async def run_server():
     #                      defer_start=False)
 
     # 	deferred start:
-    server = await StartTcpServer(context, identity=identity, address=("0.0.0.0", 5020),
-                                  allow_reuse_address=True, defer_start=True)
+    #server = await StartTcpServer(context, identity=identity, address=("0.0.0.0", 5020),
+    #                              allow_reuse_address=True, defer_start=True)
 
-    asyncio.get_event_loop().call_later(20, lambda: server.serve_forever)
-    await server.serve_forever()
+    #asyncio.get_event_loop().call_later(20, lambda: server.serve_forever)
+    #await server.serve_forever()
 
     # TCP with different framer
     # StartTcpServer(context, identity=identity,
     #                framer=ModbusRtuFramer, address=("0.0.0.0", 5020))
 
     # Tls:
-    # await StartTlsServer(context, identity=identity, address=("localhost", 8020),
-    #                      certfile="server.crt", keyfile="server.key",
-    #                      allow_reuse_address=True, allow_reuse_port=True,
-    #                      defer_start=False)
+    await StartTlsServer(context, identity=identity, address=("localhost", 5020),
+                          #certfile="server.crt", keyfile="server.key",
+                         certfile="../../../aioquic/tests/ssl_cert.pem", keyfile="../../../aioquic/tests/ssl_key.pem",
+                         #allow_reuse_address=True, allow_reuse_port=True,
+                         defer_start=False)
 
     # Udp:
-    # server = await StartUdpServer(context, identity=identity, address=("0.0.0.0", 5020),
-    #                               allow_reuse_address=True, defer_start=True)
-    # #
-    # await server.serve_forever()
+    #server = await StartUdpServer(context, identity=identity, address=("0.0.0.0", 5020),
+    #                            defer_start=True)
+    #
+    #await server.serve_forever()
 
     # !!! SERIAL SERVER NOT IMPLEMENTED !!!
     # Ascii:

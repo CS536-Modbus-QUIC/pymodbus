@@ -15,7 +15,7 @@ if IS_PYTHON3 and PYTHON_VERSION >= (3, 4):
     # ----------------------------------------------------------------------- #
     # Import the required asynchronous client
     # ----------------------------------------------------------------------- #
-    from pymodbus.client.asynchronous.tcp import AsyncModbusTCPClient as ModbusClient
+    from pymodbus.client.asynchronous.tls import AsyncModbusTLSClient as ModbusClient
     # from pymodbus.client.asynchronous.udp import (
     #     AsyncModbusUDPClient as ModbusClient)
     from pymodbus.client.asynchronous import schedulers
@@ -27,6 +27,8 @@ else:
 
 from threading import Thread
 import time
+import ssl
+sslctx = ssl.create_default_context(cafile='../../../aioquic/tests/pycacert.pem')
 # --------------------------------------------------------------------------- #
 # configure the client logging
 # --------------------------------------------------------------------------- #
@@ -176,7 +178,7 @@ def run_with_already_running_loop():
     t.start()
     assert loop.is_running()
     asyncio.set_event_loop(loop)
-    loop, client = ModbusClient(schedulers.ASYNC_IO, port=5020, loop=loop)
+    loop, client = ModbusClient(schedulers.ASYNC_IO, port=5020, loop=loop, )
     future = asyncio.run_coroutine_threadsafe(
         start_async_test(client.protocol), loop=loop)
     future.add_done_callback(done)
@@ -193,7 +195,8 @@ def run_with_no_loop():
     :return:
     """
     log.debug("---------------------RUN_WITH_NO_LOOP-----------------")
-    loop, client = ModbusClient(schedulers.ASYNC_IO, port=5020)
+    loop, client = ModbusClient(schedulers.ASYNC_IO, port=5020, sslctx=sslctx)
+
     loop.run_until_complete(start_async_test(client.protocol))
     loop.close()
     log.debug("--------DONE RUN_WITH_NO_LOOP-------------")
