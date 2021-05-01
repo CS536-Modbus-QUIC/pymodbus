@@ -132,7 +132,7 @@ async def run_server():
     # Tls:
     await StartTlsServer(context, identity=identity, address=("localhost", 5020),
                           #certfile="server.crt", keyfile="server.key",
-                         certfile="../../../aioquic/tests/ssl_cert.pem", keyfile="../../../aioquic/tests/ssl_key.pem",
+                         certfile="cert.pem", keyfile="key.pem",
                          #allow_reuse_address=True, allow_reuse_port=True,
                          defer_start=False)
 

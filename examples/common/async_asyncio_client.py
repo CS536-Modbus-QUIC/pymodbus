@@ -28,7 +28,7 @@ else:
 from threading import Thread
 import time
 import ssl
-sslctx = ssl.create_default_context(cafile='../../../aioquic/tests/pycacert.pem')
+sslctx = ssl.create_default_context(cafile='cert.pem')
 # --------------------------------------------------------------------------- #
 # configure the client logging
 # --------------------------------------------------------------------------- #
