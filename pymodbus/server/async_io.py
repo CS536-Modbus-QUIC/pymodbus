@@ -4,8 +4,8 @@ Implementation of a Threaded Modbus Server
 
 """
 from binascii import b2a_hex
-import serial
-from serial_asyncio import create_serial_connection
+#import serial
+#from serial_asyncio import create_serial_connection
 import ssl
 import traceback
 
