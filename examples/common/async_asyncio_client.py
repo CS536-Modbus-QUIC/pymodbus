@@ -195,7 +195,7 @@ def run_with_no_loop():
     :return:
     """
     log.debug("---------------------RUN_WITH_NO_LOOP-----------------")
-    loop, client = ModbusClient(schedulers.ASYNC_IO, port=5020, sslctx=sslctx)
+    loop, client = ModbusClient(schedulers.ASYNC_IO, host='10.0.0.1', port=5020, sslctx=sslctx)
 
     loop.run_until_complete(start_async_test(client.protocol))
     loop.close()
